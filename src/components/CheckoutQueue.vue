@@ -2,9 +2,9 @@
   <div class="checkout-queue">
     <div class="checkout">{{ checkoutNumber }}</div>
     <div class="customer"
-    v-for="(purchasesQty, index) in queue"
+    v-for="(purchasesQuantity, index) in queue"
     :key="index"
-    >{{purchasesQty}}</div>
+    >{{purchasesQuantity}}</div>
 </template>
 
 <script>

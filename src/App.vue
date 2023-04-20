@@ -1,8 +1,11 @@
 <template>
   <div id="app">
+    <h2 style="color: red" v-if="!isCorrectQuantity">
+      please enter a positive integer
+    </h2>
     <div class="input-form">
       <input
-        v-model="newPurchasesQty"
+        v-model="newPurchasesQuantity"
         type="number"
         class="input"
         placeholder="Add purchases quantity.."
@@ -28,7 +31,8 @@ export default {
   data() {
     return {
       queues: [[2, 3, 5], [2, 6, 3], [1], [11, 3, 6], []],
-      newPurchasesQty: '',
+      newPurchasesQuantity: '',
+      isCorrectQuantity: true
     };
   },
   name: 'App',
@@ -37,8 +41,19 @@ export default {
   },
   methods: {
     addCustomer() {
-      this.queues[this.shortestQueueIndex].push(Number(this.newPurchasesQty));
-      this.newPurchasesQty = '';
+      this.newPurchasesQuantity = Number(this.newPurchasesQuantity);
+      if (
+        this.newPurchasesQuantity > 0 &&
+        Number.isInteger(this.newPurchasesQuantity)
+      ) {
+        this.isCorrectQuantity = true;
+        this.queues[this.shortestQueueIndex].push(
+          this.newPurchasesQuantity);
+        this.newPurchasesQuantity = '';
+        return
+        }
+      this.isCorrectQuantity = false;
+      this.newPurchasesQuantity = '';
     },
     updateQueues() {
       this.queues.forEach((queue) => {
